@@ -62,7 +62,12 @@ async function run() {
             res.send(result);
         });
 
- 
+        // Manage products (delete)
+        app.delete('/manage-products/:id', async (req, res) => {
+            const id = req.params.id;
+            const result = await productsCollection.deleteOne({ _id: new ObjectId(id)});
+            res.send(result);
+        });
 
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
