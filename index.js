@@ -51,6 +51,18 @@ async function run() {
             res.send(result);
         });
 
+        // GEt products filter by user email 
+        app.get('/manage-products', async (req, res) => {
+            const email = req.query.email;
+            const query = {}
+                if(email){
+                    query.userEmail = email
+                }
+            const result = await productsCollection.find(query).sort({ createdAt: -1 }).toArray();
+            res.send(result);
+        });
+
+ 
 
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
@@ -62,7 +74,6 @@ run().catch(console.dir);
 app.get('/', (req, res)=> {
     res.send('NovaCart Server is Running...')
 })
-
 
 app.listen(port, ()=> {
     console.log(`Server running on port: ${port}`);
