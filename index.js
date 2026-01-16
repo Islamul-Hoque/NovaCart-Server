@@ -31,6 +31,14 @@ async function run() {
             res.send(result)
         })
 
+        // All products (All Products page)
+        app.get('/all-products', async (req, res) => {
+            const result = await productsCollection.find().sort({ createdAt: -1 }).toArray();
+            res.send(result);
+        });
+
+
+
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
     // await client.close();
